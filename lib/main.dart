@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
+      theme: ThemeData.dark(
         // This is the theme of your application.
         //
         // Try running your application with "flutter run". You'll see the
@@ -22,9 +22,9 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        //primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Mes Programmes'),
     );
   }
 }
@@ -61,6 +61,8 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -74,6 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
+        centerTitle: true,
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -109,7 +112,30 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
+
+    bottomNavigationBar: BottomNavigationBar(
+    items: const <BottomNavigationBarItem>[
+    BottomNavigationBarItem(
+    icon: Icon(Icons.list),
+    label: 'Paramètres',
+    ),
+    BottomNavigationBarItem(
+    icon: Icon(Icons.timer),
+    label: 'Sets',
+    ),
+    BottomNavigationBarItem(
+    icon: Icon(Icons.sports_gymnastics),
+    label: 'Exercices',
+    ),
+    ],
+    ),
+    /*
+    currentIndex: _selectedIndex,
+    selectedItemColor: Colors.amber[800],
+    onTap: _onItemTapped,
+    */
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
