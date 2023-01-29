@@ -1,16 +1,11 @@
 # stayfocus
+Nouveau Projet Flutter
 
-A new Flutter project.
+## à lire
+Cette application est un outil pour les sportifs, il sert pour gèstion des activité pysiques, musculation et séances.
 
-## Getting Started
+En cas de besoin d'aide, Veuillez nous contacter sur le site STAYFOCUS.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# droits
+Copyright© 2023 Ilyas SENOUSSA | Tous droits réservés.
