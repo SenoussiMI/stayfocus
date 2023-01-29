@@ -3,8 +3,6 @@ import 'package:stayfocus/Models/exercise_model.dart';
 import 'package:stayfocus/Models/program.model.dart';
 import 'package:stayfocus/db/DatabaseHelper.dart';
 import 'package:stayfocus/home/home_page.dart';
-import 'package:stayfocus/main.dart';
-import 'package:stayfocus/programs/programs_list.dart';
 
 class ProgramsAdd extends StatefulWidget {
   const ProgramsAdd({Key? key}) : super(key: key);
