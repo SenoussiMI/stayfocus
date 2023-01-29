@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:stayfocus/Models/program.model.dart';
 import 'package:stayfocus/programs/programs_add.dart';
@@ -41,56 +39,61 @@ class _ProgramsState extends State<Programs> {
                   return snapshot.data!.isEmpty
                       ? Center(child: Text('Aucun program trouvé.'))
                       : Container(
-                    child: ListView(
-                      shrinkWrap: true,
-                      children: snapshot.data!.map((Program) {
-                        return Center(
-                          child: Card(
-                            color: selectedId == Program.id
-                                ? Colors.black45
-                                : Colors.black12,
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                child: Icon (
-                                  Icons.sports_gymnastics,
+                          child: ListView(
+                            shrinkWrap: true,
+                            children: snapshot.data!.map((Program) {
+                              return Center(
+                                child: Card(
+                                  color: selectedId == Program.id
+                                      ? Colors.black45
+                                      : Colors.black12,
+                                  child: ListTile(
+                                    leading: CircleAvatar(
+                                      child: Icon(
+                                        Icons.sports_gymnastics,
+                                      ),
+                                    ),
+                                    title: Text(Program.name),
+                                    onTap: () {
+                                      setState(() {
+                                        if (selectedId == null) {
+                                          textController.text = Program.name;
+                                          selectedId = Program.id;
+                                        } else {
+                                          textController.text = '';
+                                          selectedId = null;
+                                        }
+                                      });
+                                    },
+                                    onLongPress: () {
+                                      setState(() {
+                                        DatabaseHelper.instance
+                                            .removeProgram(Program.id!);
+                                      });
+                                      final snackBar = SnackBar(
+                                        content:
+                                            Text('Programme a été supprimé'),
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                    },
+                                  ),
                                 ),
-                              ),
-                              title: Text(Program.name),
-                              onTap: () {
-                                setState(() {
-                                  if (selectedId == null) {
-                                    textController.text = Program.name;
-                                    selectedId = Program.id;
-                                  } else {
-                                    textController.text = '';
-                                    selectedId = null;
-                                  }
-                                });
-                              },
-                              onLongPress: () {
-                                setState(() {
-                                  DatabaseHelper.instance
-                                      .removeProgram(Program.id!);
-                                });
-                              },
-                            ),
+                              );
+                            }).toList(),
                           ),
                         );
-                      }).toList(),
-                    ),
-                  );
                 }),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const ProgramsAdd()),
-        );
-      },
-
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ProgramsAdd()),
+          );
+        },
         backgroundColor: Colors.green,
         child: const Icon(Icons.add),
       ),

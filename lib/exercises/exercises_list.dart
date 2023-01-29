@@ -2,18 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:stayfocus/Models/exercise_model.dart';
 import 'package:stayfocus/db/DatabaseHelper.dart';
 
-/*
-const List<Map<String, dynamic>> listExercices = [
-  {
-    'name': 'Muscle up',
-  },
-  {
-    'name': 'Pull up',
-  },
-];
-
- */
-
 class Exercises extends StatefulWidget {
   const Exercises({Key? key}) : super(key: key);
 
@@ -60,7 +48,7 @@ class _ExercisesState extends State<Exercises> {
                                       : Colors.black12,
                                   child: ListTile(
                                     leading: CircleAvatar(
-                                      child: Icon (
+                                      child: Icon(
                                         Icons.sports_gymnastics,
                                       ),
                                     ),
@@ -81,6 +69,12 @@ class _ExercisesState extends State<Exercises> {
                                         DatabaseHelper.instance
                                             .removeExercise(Exercise.id!);
                                       });
+                                      final snackBar = SnackBar(
+                                        content:
+                                            Text('Exercice a été supprimé'),
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
                                     },
                                   ),
                                 ),

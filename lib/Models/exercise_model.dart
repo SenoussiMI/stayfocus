@@ -4,7 +4,6 @@ class Exercise {
 
   Exercise({this.id, required this.name});
 
-
   factory Exercise.fromMap(Map<String, dynamic> json) => new Exercise(
         id: json['id'],
         name: json['name'],

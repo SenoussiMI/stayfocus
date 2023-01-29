@@ -19,8 +19,7 @@ class _ProgramsAddState extends State<ProgramsAdd> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-      Stack(
+      body: Stack(
         children: [
           Container(
             child: TextField(
@@ -28,8 +27,7 @@ class _ProgramsAddState extends State<ProgramsAdd> {
             ),
           ),
           Center(
-            child:
-            FutureBuilder<List<Exercise>>(
+            child: FutureBuilder<List<Exercise>>(
                 future: DatabaseHelper.instance.getexercises(),
                 builder: (BuildContext context,
                     AsyncSnapshot<List<Exercise>> snapshot) {
@@ -41,47 +39,39 @@ class _ProgramsAddState extends State<ProgramsAdd> {
                   return snapshot.data!.isEmpty
                       ? Center(child: Text('Aucun exercise trouvé.'))
                       : Container(
-                    child: ListView(
-                      shrinkWrap: true,
-                      children: snapshot.data!.map((Exercise){
-                        return Center(
-                          child: Card(
-                            color:
-                            selectedId == Exercise.id
-                                ? Colors.black45
-                                : Colors.black12,
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                child: Icon (
-                                  Icons.sports_gymnastics,
+                          child: ListView(
+                            shrinkWrap: true,
+                            children: snapshot.data!.map((Exercise) {
+                              return Center(
+                                child: Card(
+                                  color: selectedId == Exercise.id
+                                      ? Colors.black45
+                                      : Colors.black12,
+                                  child: ListTile(
+                                    leading: CircleAvatar(
+                                      child: Icon(
+                                        Icons.sports_gymnastics,
+                                      ),
+                                    ),
+                                    title: Text(Exercise.name),
+                                    onTap: () {
+                                      setState(() {
+                                        if (selectedId == null) {
+                                          textController.text = Exercise.name;
+                                          selectedId = Exercise.id;
+                                          //  selectedGroup.add(selectedId);
+                                        } else {
+                                          textController.text = '';
+                                          selectedId = null;
+                                        }
+                                      });
+                                    },
+                                  ),
                                 ),
-                              ),
-                              title: Text(Exercise.name),
-                              onTap: () {
-                                setState(() {
-                                  if (selectedId == null) {
-                                    textController.text = Exercise.name;
-                                    selectedId = Exercise.id;
-                                  //  selectedGroup.add(selectedId);
-                                  }
-                                  else {
-                                    textController.text = '';
-                                    selectedId = null;
-                                  }
-                                });
-                              },
-                              onLongPress: () {
-                                setState(() {
-                                  DatabaseHelper.instance
-                                      .removeExercise(Exercise.id!);
-                                });
-                              },
-                            ),
+                              );
+                            }).toList(),
                           ),
                         );
-                      }).toList(),
-                    ),
-                  );
                 }),
           ),
         ],
@@ -89,12 +79,10 @@ class _ProgramsAddState extends State<ProgramsAdd> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.done),
         onPressed: () async {
-          selectedId != null
-              ? await DatabaseHelper.instance.updateExercise(
-            Exercise(id: selectedId, name: textController.text),
-          )
+          textController.text == ''
+              ? Navigator.pop(context)
               : await DatabaseHelper.instance
-              .addProgram(Program(name: textController.text));
+                  .addProgram(Program(name: textController.text));
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const HomePage()),
@@ -105,8 +93,3 @@ class _ProgramsAddState extends State<ProgramsAdd> {
     );
   }
 }
-
-
-
-
-

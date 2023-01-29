@@ -20,7 +20,7 @@ class _SettingsState extends State<Settings> {
 
   Future getCurrentTheme() async {
     savedThemeMode = await AdaptiveTheme.getThemeMode();
-    if(savedThemeMode.toString() == 'AdaptiveTheme.dark'){
+    if (savedThemeMode.toString() == 'AdaptiveTheme.dark') {
       print('thème sombre');
 
       setState(() {
@@ -39,50 +39,47 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body : Center(
-         child: Column(
-           mainAxisAlignment: MainAxisAlignment.center,
-           children: [
-             Container(
-               height: 150,
-                 child: iconAdress!= null ? Image.asset(iconAdress) : Container(),
-             ),
-             SizedBox(height: 70),
-             Text(
-               'Changez de théme',
-               style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-
-             ),
-             SizedBox(height: 20),
-             Container(
-               width: 250,
-               child: Text(
-                 "Vous pouvez changer le thème de l'interface de votre application.",
-                 textAlign: TextAlign.center,
-               ),
-             ),
-
-             SizedBox(height: 20),
-            SwitchListTile(
-              title: Text('Mode sombre'),
-              activeColor: Colors.orange,
-              value: darkmode,
-                onChanged: (bool value) {
-                if (value == true) {
-                  AdaptiveTheme.of(context).setDark();
-                  iconAdress = 'assets/icon/sombre.png';
-                } else {
-                  AdaptiveTheme.of(context).setLight();
-                  iconAdress = 'assets/icon/clair.png';
-                }
-                setState(() {
-                  darkmode = value;
-                });
-                },
+      body: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            height: 150,
+            child: iconAdress != null ? Image.asset(iconAdress) : Container(),
+          ),
+          SizedBox(height: 70),
+          Text(
+            'Changez de théme',
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 20),
+          Container(
+            width: 250,
+            child: Text(
+              "Vous pouvez changer le thème de l'interface de votre application.",
+              textAlign: TextAlign.center,
             ),
-           ],
-         )
-        ),
+          ),
+          SizedBox(height: 20),
+          SwitchListTile(
+            title: Text('Mode sombre'),
+            activeColor: Colors.orange,
+            value: darkmode,
+            onChanged: (bool value) {
+              if (value == true) {
+                AdaptiveTheme.of(context).setDark();
+                iconAdress = 'assets/icon/sombre.png';
+              } else {
+                AdaptiveTheme.of(context).setLight();
+                iconAdress = 'assets/icon/clair.png';
+              }
+              setState(() {
+                darkmode = value;
+              });
+            },
+          ),
+        ],
+      )),
     );
   }
 }

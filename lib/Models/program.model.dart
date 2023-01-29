@@ -4,7 +4,6 @@ class Program {
 
   Program({this.id, required this.name});
 
-
   factory Program.fromMap(Map<String, dynamic> json) => new Program(
     id: json['id'],
     name: json['name'],
