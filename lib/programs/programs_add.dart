@@ -1,52 +1,55 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:stayfocus/Models/exercise_model.dart';
 import 'package:stayfocus/Models/program.model.dart';
-import 'package:stayfocus/programs/programs_add.dart';
 import 'package:stayfocus/db/DatabaseHelper.dart';
+import 'package:stayfocus/home/home_page.dart';
+import 'package:stayfocus/main.dart';
+import 'package:stayfocus/programs/programs_list.dart';
 
-class Programs extends StatefulWidget {
-  const Programs({Key? key}) : super(key: key);
+class ProgramsAdd extends StatefulWidget {
+  const ProgramsAdd({Key? key}) : super(key: key);
 
   @override
-  State<Programs> createState() => _ProgramsState();
+  State<ProgramsAdd> createState() => _ProgramsAddState();
 }
 
-class _ProgramsState extends State<Programs> {
+class _ProgramsAddState extends State<ProgramsAdd> {
   int? selectedId;
+  late List<int?> selectedGroup;
   final textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Mes programmes'),
-        centerTitle: true,
-      ),
-      body: Column(
+      body:
+      Stack(
         children: [
-          TextField(
-            controller: textController,
+          Container(
+            child: TextField(
+              controller: textController,
+            ),
           ),
           Center(
-            child: FutureBuilder<List<Program>>(
-                future: DatabaseHelper.instance.getprograms(),
+            child:
+            FutureBuilder<List<Exercise>>(
+                future: DatabaseHelper.instance.getexercises(),
                 builder: (BuildContext context,
-                    AsyncSnapshot<List<Program>> snapshot) {
+                    AsyncSnapshot<List<Exercise>> snapshot) {
                   if (!snapshot.hasData) {
                     return Center(
                       child: Text('Chargement...'),
                     );
                   }
                   return snapshot.data!.isEmpty
-                      ? Center(child: Text('Aucun program trouvé.'))
+                      ? Center(child: Text('Aucun exercise trouvé.'))
                       : Container(
                     child: ListView(
                       shrinkWrap: true,
-                      children: snapshot.data!.map((Program) {
+                      children: snapshot.data!.map((Exercise){
                         return Center(
                           child: Card(
-                            color: selectedId == Program.id
+                            color:
+                            selectedId == Exercise.id
                                 ? Colors.black45
                                 : Colors.black12,
                             child: ListTile(
@@ -55,13 +58,15 @@ class _ProgramsState extends State<Programs> {
                                   Icons.sports_gymnastics,
                                 ),
                               ),
-                              title: Text(Program.name),
+                              title: Text(Exercise.name),
                               onTap: () {
                                 setState(() {
                                   if (selectedId == null) {
-                                    textController.text = Program.name;
-                                    selectedId = Program.id;
-                                  } else {
+                                    textController.text = Exercise.name;
+                                    selectedId = Exercise.id;
+                                  //  selectedGroup.add(selectedId);
+                                  }
+                                  else {
                                     textController.text = '';
                                     selectedId = null;
                                   }
@@ -70,7 +75,7 @@ class _ProgramsState extends State<Programs> {
                               onLongPress: () {
                                 setState(() {
                                   DatabaseHelper.instance
-                                      .removeProgram(Program.id!);
+                                      .removeExercise(Exercise.id!);
                                 });
                               },
                             ),
@@ -84,16 +89,26 @@ class _ProgramsState extends State<Programs> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const ProgramsAdd()),
-        );
-      },
-
-        backgroundColor: Colors.green,
-        child: const Icon(Icons.add),
+        child: Icon(Icons.done),
+        onPressed: () async {
+          selectedId != null
+              ? await DatabaseHelper.instance.updateExercise(
+            Exercise(id: selectedId, name: textController.text),
+          )
+              : await DatabaseHelper.instance
+              .addProgram(Program(name: textController.text));
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const HomePage()),
+          );
+        },
+        backgroundColor: Colors.redAccent,
       ),
     );
   }
 }
+
+
+
+
+

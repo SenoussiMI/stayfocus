@@ -59,6 +59,11 @@ class _ExercisesState extends State<Exercises> {
                                       ? Colors.black45
                                       : Colors.black12,
                                   child: ListTile(
+                                    leading: CircleAvatar(
+                                      child: Icon (
+                                        Icons.sports_gymnastics,
+                                      ),
+                                    ),
                                     title: Text(Exercise.name),
                                     onTap: () {
                                       setState(() {
@@ -74,7 +79,7 @@ class _ExercisesState extends State<Exercises> {
                                     onLongPress: () {
                                       setState(() {
                                         DatabaseHelper.instance
-                                            .remove(Exercise.id!);
+                                            .removeExercise(Exercise.id!);
                                       });
                                     },
                                   ),
@@ -91,11 +96,11 @@ class _ExercisesState extends State<Exercises> {
         child: Icon(Icons.add),
         onPressed: () async {
           selectedId != null
-              ? await DatabaseHelper.instance.update(
+              ? await DatabaseHelper.instance.updateExercise(
                   Exercise(id: selectedId, name: textController.text),
                 )
               : await DatabaseHelper.instance
-                  .add(Exercise(name: textController.text));
+                  .addExercise(Exercise(name: textController.text));
           setState(() {
             textController.clear();
           });

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stayfocus/home/home_page.dart';
+import 'package:adaptive_theme/adaptive_theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,21 +18,22 @@ class _AppState extends State<App> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'StayFocus',
-      theme: ThemeData.dark(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        //primarySwatch: Colors.blue,
+    return AdaptiveTheme(
+      light: ThemeData(
+        brightness: Brightness.light,
+        primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      dark: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.orange,
+      ),
+      initial: AdaptiveThemeMode.light,
+      builder: (theme, darkTheme) => MaterialApp(
+        title: 'StayFocus',
+        theme: theme,
+        darkTheme: darkTheme,
+        home: HomePage(),
+      ),
     );
   }
 }
