@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:stayfocus/repository/repository.dart'; // Importez le repository
-
 import 'package:stayfocus/api/models/models.dart';
 
 part 'exercices_event.dart';
@@ -21,6 +21,9 @@ class ExercicesBloc extends Bloc<ExercicesEvent, ExercicesState> {
     }
     // Ajoutez d'autres conditions pour d'autres événements si nécessaire
   }
+
+    //avoir un onevent puis afficher event
+
 
   Stream<ExercicesState> _mapLoadExercicesToState() async* {
     try {
