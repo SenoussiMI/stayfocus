@@ -15,6 +15,8 @@ class ExercicesView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Exercises'),
+        centerTitle: true, // Centrer le titre de l'AppBar
+        backgroundColor: Colors.blue, // Couleur de fond bleue
       ),
       body: BlocProvider(
         create: (context) => ExercicesBloc(
