@@ -7,8 +7,12 @@ class ProgramsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Programs'),
+        title: const Text(
+            'Programs',
+             style: TextStyle(color: Colors.white), // Couleur du texte en blanc
+        ),
         centerTitle: true, // Centrer le titre de l'AppBar
+        backgroundColor: Colors.blue, // Couleur de fond bleue
       ),
       body: const Center(
         child: Text('Programs Page'),

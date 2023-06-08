@@ -14,7 +14,10 @@ class ExercicesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Exercises'),
+        title: const Text(
+            'Exercises',
+             style: TextStyle(color: Colors.white), // Couleur du texte en blanc
+        ),
         centerTitle: true, // Centrer le titre de l'AppBar
         backgroundColor: Colors.blue, // Couleur de fond bleue
       ),

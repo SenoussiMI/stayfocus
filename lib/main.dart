@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home/home.dart';
+import 'settings/settings.dart';
 import 'programs/programs.dart';
 import 'exercices/exercices.dart';
 import 'repository/repository.dart';
@@ -17,7 +17,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
 
   void _onTabTapped(int index) {
     setState(() {
@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   List<Widget> _pages = [
-    HomeView(),
+    SettingsView(),
     ProgramsView(),
     ExercicesView(),
   ];
@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'StayFocus',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
         useMaterial3: true,
@@ -50,7 +50,7 @@ class _MyAppState extends State<MyApp> {
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.list),
-              label: 'Home',
+              label: 'Settings',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.timer),
