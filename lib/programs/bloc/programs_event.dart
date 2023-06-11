@@ -8,4 +8,14 @@ abstract class ProgramsEvent extends Equatable {
 }
 
 class LoadPrograms extends ProgramsEvent {}
-// Ajoutez d'autres événements si nécessaire
+
+class AddProgram extends ProgramsEvent {
+  final Program program;
+
+  AddProgram(this.program);
+
+  String get programName => program.name;
+
+  @override
+  List<Object> get props => [program];
+}

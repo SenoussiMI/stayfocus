@@ -24,6 +24,6 @@ class ExercisesApi {
 
   Future<int> updateExercise(Exercise exercise) async {
     Database db = await DatabaseHelper.instance.database;
-    return await db.update('exercises',exercise.toMap(), where: 'id =?', whereArgs: [exercise.id]);
+    return await db.update('exercises', exercise.toMap(), where: 'id =?', whereArgs: [exercise.id]);
   }
 }

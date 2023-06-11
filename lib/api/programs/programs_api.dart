@@ -3,7 +3,6 @@ import 'package:stayfocus/db/databaseCenter.dart';
 import 'package:stayfocus/api/models/models.dart';
 
 class ProgramsApi {
-
   Future<List<Program>> getprograms() async {
     Database db = await DatabaseHelper.instance.database;
     var programs = await db.query('programs', orderBy: 'name');
@@ -25,6 +24,6 @@ class ProgramsApi {
 
   Future<int> updateProgram(Program program) async {
     Database db = await DatabaseHelper.instance.database;
-    return await db.update('programs',program.toMap(), where: 'id =?', whereArgs: [program.id]);
+    return await db.update('programs', program.toMap(), where: 'id =?', whereArgs: [program.id]);
   }
 }

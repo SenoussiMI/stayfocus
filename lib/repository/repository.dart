@@ -1,31 +1,27 @@
-import 'package:stayfocus/api/api.dart';
-import 'package:stayfocus/api/models/models.dart';
 
 class Repository {
-  final ExercisesApi exercisesApi;
-  final ProgramsApi programsApi;
+  final dynamic exercisesApi;
+  final dynamic programsApi;
 
   const Repository({
     required this.exercisesApi,
     required this.programsApi,
   });
 
-  Future<List<Exercise>> getExercises() => exercisesApi.getexercises();
+  Future<List<dynamic>> getExercises() => exercisesApi.getexercises();
 
-  Future<int> addExercise(Exercise exercise) =>
-      exercisesApi.addExercise(exercise);
+  Future<int> addExercise(dynamic exercise) => exercisesApi.addExercise(exercise);
 
   Future removeExercise(int id) => exercisesApi.removeExercise(id);
 
-  Future<int> updateExercise(Exercise exercise) =>
-      exercisesApi.updateExercise(exercise);
+  Future<int> updateExercise(dynamic exercise) => exercisesApi.updateExercise(exercise);
 
-  Future<List<Program>> getPrograms() => programsApi.getprograms();
+  Future<List<dynamic>> getPrograms() => programsApi.getprograms();
 
-  Future<int> addProgram(Program program) => programsApi.addProgram(program);
+  Future<int> addProgram(dynamic program) => programsApi.addProgram(program);
 
   Future removeProgram(int id) => programsApi.removeProgram(id);
 
-  Future<int> updateProgram(Program program) =>
-      programsApi.updateProgram(program);
+  Future<int> updateProgram(dynamic program) => programsApi.updateProgram(program);
+
 }
