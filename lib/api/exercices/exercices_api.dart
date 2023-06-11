@@ -1,8 +1,8 @@
-import 'package:stayfocus/Models/exercise_model.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:stayfocus/db/DatabaseHelper.dart';
+import 'package:stayfocus/db/databaseCenter.dart';
+import 'package:stayfocus/api/models/models.dart';
 
-abstract class ExercisesApi {
+class ExercisesApi {
   Future<List<Exercise>> getexercises() async {
     Database db = await DatabaseHelper.instance.database;
     var exercises = await db.query('exercises', orderBy: 'name');
@@ -24,6 +24,6 @@ abstract class ExercisesApi {
 
   Future<int> updateExercise(Exercise exercise) async {
     Database db = await DatabaseHelper.instance.database;
-    return await db.update('exercises',exercise.toMap(), where: 'id =?', whereArgs: [exercise.id]);
+    return await db.update('exercises', exercise.toMap(), where: 'id =?', whereArgs: [exercise.id]);
   }
 }

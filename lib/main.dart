@@ -1,38 +1,72 @@
 import 'package:flutter/material.dart';
-import 'package:stayfocus/home/home_page.dart';
-import 'package:adaptive_theme/adaptive_theme.dart';
+import 'settings/settings.dart';
+import 'programs/programs.dart';
+import 'exercices/exercices.dart';
+import 'repository/repository.dart';
+import 'package:stayfocus/api/api.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(const App());
+  final exercicesApi = ExercisesApi();
+  final programsApi = ProgramsApi();
+  final repository = Repository(
+    exercisesApi: exercicesApi,
+    programsApi: programsApi,
+  );
+
+  runApp(MyApp(repository: repository));
 }
 
-class App extends StatefulWidget {
-  const App({super.key});
+class MyApp extends StatefulWidget {
+  final Repository repository;
+
+  MyApp({required this.repository});
 
   @override
-  State<App> createState() => _AppState();
+  _MyAppState createState() => _MyAppState();
 }
 
-class _AppState extends State<App> {
-  // This widget is the root of your application.
+class _MyAppState extends State<MyApp> {
+  int _currentIndex = 1;
+
   @override
   Widget build(BuildContext context) {
-    return AdaptiveTheme(
-      light: ThemeData(
-        brightness: Brightness.light,
+    final repository = widget.repository;
+
+    final List<Widget> _pages = [
+      ExercicesView(repository: repository),
+      ProgramsView(repository: repository),
+      SettingsView(),
+    ];
+
+    return MaterialApp(
+      title: 'StayFocus',
+      theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      dark: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.orange,
-      ),
-      initial: AdaptiveThemeMode.light,
-      builder: (theme, darkTheme) => MaterialApp(
-        title: 'StayFocus',
-        theme: theme,
-        darkTheme: darkTheme,
-        home: HomePage(),
+      home: Scaffold(
+        body: _pages[_currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.fitness_center),
+              label: 'Exercises',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.list),
+              label: 'Programs',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Settings',
+            ),
+          ],
+        ),
       ),
     );
   }
