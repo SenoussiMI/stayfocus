@@ -2,10 +2,8 @@ import 'dart:io';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:stayfocus/Api/exercises_api.dart';
-import 'package:stayfocus/Api/programs_api.dart';
 
-class DatabaseHelper extends ProgramsApi with ExercisesApi {
+class DatabaseHelper {
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
 
@@ -15,6 +13,10 @@ class DatabaseHelper extends ProgramsApi with ExercisesApi {
   Future<Database> _initDatabase() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, 'stayfocus.db');
+
+    // Supprimer la base de données existante
+    await deleteDatabase(path);
+
     return await openDatabase(
       path,
       version: 1,
@@ -38,21 +40,20 @@ class DatabaseHelper extends ProgramsApi with ExercisesApi {
     ''');
 
     await db.rawInsert('''
-    INSERT INTO exercises (name) VALUES ('Dead lift'), ('Pull up'), ('Squats'))
+    INSERT INTO exercises (name) VALUES ('Dead lift'), ('Pull up'), ('Squats'), ('Burpees'), ('Bench press'), ('Handstand'), ('Push up'), ('Dips')
     ''');
 
     await db.rawInsert('''
-    INSERT INTO programs (name) VALUES ('Jambes'), ('Pecs'), ('Dos'))
+    INSERT INTO programs (name) VALUES ('Pecs'), ('Dos'), ('Epaules'), ('Biceps'), ('Legs')
     ''');
 
-    /*
-    THIS TABLE IS NOT INCLUDED
     await db.execute('''
     CREATE TABLE liaison(
-    FOREIGN KEY (programsId) REFRENCES programs (id),
-    FOREIGN KEY (exercicesId) REFRENCES exercices (id)
+    programsId INTEGER,
+    exercicesId INTEGER,
+    FOREIGN KEY (programsId) REFERENCES programs (id),
+    FOREIGN KEY (exercicesId) REFERENCES exercises (id)
     )
     ''');
-*/
   }
 }
