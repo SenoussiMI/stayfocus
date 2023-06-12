@@ -13,6 +13,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
   ProgramsBloc({required this.repository}) : super(ProgramsInitial()) {
     on<LoadPrograms>(_onLoadPrograms);
     on<AddProgram>(_onAddProgram);
+    on<UpdateProgram>(_onUpdateProgram);
   }
 
   void _onLoadPrograms(LoadPrograms event, Emitter<ProgramsState> emit) async {
@@ -29,21 +30,41 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
 
   void _onAddProgram(AddProgram event, Emitter<ProgramsState> emit) async {
     try {
-      // Vérifier si le programme existe déjà
+      
       final existingPrograms = (state as ProgramsLoaded).programs;
       if (existingPrograms.any((program) => program.name == event.programName)) {
         emit(ProgramsError(error: 'Program already exists.'));
       } else {
-        // Ajouter le programme à la liste
+        
         final newProgram = event.program;
         final updatedPrograms = [...existingPrograms, newProgram];
         emit(ProgramsLoaded(programs: updatedPrograms));
 
-        // Ajouter le programme à la base de données en utilisant le repository
+        
         await repository.addProgram(newProgram);
       }
     } catch (error) {
       emit(ProgramsError(error: error.toString()));
     }
   }
+
+  void _onUpdateProgram(UpdateProgram event, Emitter<ProgramsState> emit) async {
+    try {
+      final existingPrograms = (state as ProgramsLoaded).programs;
+      final updatedPrograms = existingPrograms.map((program) {
+        if (program.id == event.program.id) {
+          return event.program;
+        } else {
+          return program;
+        }
+      }).toList();
+      emit(ProgramsLoaded(programs: updatedPrograms));
+
+      
+      await repository.updateProgram(event.program);
+    } catch (error) {
+      emit(ProgramsError(error: error.toString()));
+    }
+  }
+
 }

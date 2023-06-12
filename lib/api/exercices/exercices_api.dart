@@ -3,7 +3,7 @@ import 'package:stayfocus/db/databaseCenter.dart';
 import 'package:stayfocus/api/models/models.dart';
 
 class ExercisesApi {
-  Future<List<Exercise>> getexercises() async {
+  Future<List<Exercise>> getExercises() async {
     Database db = await DatabaseHelper.instance.database;
     var exercises = await db.query('exercises', orderBy: 'name');
     List<Exercise> exerciseList = exercises.isNotEmpty

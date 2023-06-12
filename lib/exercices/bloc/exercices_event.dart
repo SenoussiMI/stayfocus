@@ -8,7 +8,7 @@ abstract class ExercicesEvent extends Equatable {
 }
 
 class LoadExercices extends ExercicesEvent {}
-// Ajoutez d'autres événements si nécessaire
+
 
 class AddExercise extends ExercicesEvent {
   final Exercise exercise;
@@ -16,6 +16,15 @@ class AddExercise extends ExercicesEvent {
   AddExercise(this.exercise);
 
   String get exerciseName => exercise.name;
+
+  @override
+  List<Object> get props => [exercise];
+}
+
+class RemoveExercise extends ExercicesEvent {
+  final Exercise exercise;
+
+  RemoveExercise(this.exercise);
 
   @override
   List<Object> get props => [exercise];

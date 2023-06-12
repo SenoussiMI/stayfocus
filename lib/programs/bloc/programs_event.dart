@@ -19,3 +19,13 @@ class AddProgram extends ProgramsEvent {
   @override
   List<Object> get props => [program];
 }
+
+class UpdateProgram extends ProgramsEvent {
+  final Program program;
+
+  UpdateProgram(this.program);
+
+  @override
+  List<Object> get props => [program];
+}
+
