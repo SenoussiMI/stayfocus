@@ -8,9 +8,11 @@ import 'package:stayfocus/api/api.dart';
 void main() {
   final exercicesApi = ExercisesApi();
   final programsApi = ProgramsApi();
+  final languesApi = LanguesApi();
   final repository = Repository(
     exercisesApi: exercicesApi,
     programsApi: programsApi,
+    languesApi: languesApi
   );
 
   runApp(MyApp(repository: repository));
@@ -35,7 +37,7 @@ class _MyAppState extends State<MyApp> {
     final List<Widget> _pages = [
       ExercicesView(repository: repository),
       ProgramsView(repository: repository),
-      SettingsView(),
+      SettingsView(repository: repository),
     ];
 
     return MaterialApp(

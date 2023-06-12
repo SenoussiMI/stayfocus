@@ -28,3 +28,12 @@ class ExercicesError extends ExercicesState {
   @override
   List<Object> get props => [error];
 }
+
+class ExercicesRemoved extends ExercicesState {
+  final Exercise exercise;
+
+  const ExercicesRemoved(this.exercise);
+
+  @override
+  List<Object> get props => [exercise];
+}
