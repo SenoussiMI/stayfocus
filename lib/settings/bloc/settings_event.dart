@@ -4,12 +4,17 @@ abstract class SettingsEvent extends Equatable {
   const SettingsEvent();
 }
 
-class ToggleDoNotDisturb extends SettingsEvent {
-  final bool isEnabled;
+class ChangeLanguage extends SettingsEvent {
+  final String language;
 
-  ToggleDoNotDisturb(this.isEnabled);
+  ChangeLanguage(this.language);
 
   @override
-  List<Object> get props => [isEnabled];
+  List<Object?> get props => [language];
 }
 
+
+class LoadSupportedLanguages extends SettingsEvent {
+  @override
+  List<Object> get props => [];
+}

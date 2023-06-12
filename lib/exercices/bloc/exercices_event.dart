@@ -20,3 +20,12 @@ class AddExercise extends ExercicesEvent {
   @override
   List<Object> get props => [exercise];
 }
+
+class RemoveExercise extends ExercicesEvent {
+  final Exercise exercise;
+
+  RemoveExercise(this.exercise);
+
+  @override
+  List<Object> get props => [exercise];
+}

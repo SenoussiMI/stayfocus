@@ -39,14 +39,6 @@ class DatabaseHelper {
     )
     ''');
 
-    await db.rawInsert('''
-    INSERT INTO exercises (name) VALUES ('Dead lift'), ('Pull up'), ('Squats'), ('Burpees'), ('Bench press'), ('Handstand'), ('Push up'), ('Dips')
-    ''');
-
-    await db.rawInsert('''
-    INSERT INTO programs (name) VALUES ('Pecs'), ('Dos'), ('Epaules'), ('Biceps'), ('Legs')
-    ''');
-
     await db.execute('''
     CREATE TABLE liaison(
     programsId INTEGER,
@@ -55,5 +47,30 @@ class DatabaseHelper {
     FOREIGN KEY (exercicesId) REFERENCES exercises (id)
     )
     ''');
+
+    await db.execute('''
+    CREATE TABLE langues(
+      id INTEGER PRIMARY KEY,
+      lang TEXT,
+      code TEXT,
+      country TEXT
+    )
+    ''');
+
+    await db.rawInsert('''
+    INSERT INTO exercises (name) VALUES ('Dead lift'), ('Pull up'), ('Squats'), ('Burpees'), ('Bench press'), ('Handstand'), ('Push up'), ('Dips')
+    ''');
+
+    await db.rawInsert('''
+    INSERT INTO programs (name) VALUES ('Pecs'), ('Dos'), ('Epaules'), ('Biceps'), ('Legs')
+    ''');
+
+    await db.rawInsert('''
+    INSERT INTO langues (lang, code, country) VALUES 
+      ('English', 'en', 'united_kingdom'),
+      ('Français', 'fr', 'france'),
+      ('Arabic', 'ar', 'saudi_arabia')
+    ''');
+
   }
 }

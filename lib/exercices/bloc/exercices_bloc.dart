@@ -13,6 +13,7 @@ class ExercicesBloc extends Bloc<ExercicesEvent, ExercicesState> {
   ExercicesBloc({required this.repository}) : super(ExercicesInitial()) {
     on<LoadExercices>(_onLoadExercices);
     on<AddExercise>(_onAddExercise);
+    on<RemoveExercise>(_onRemoveExercise);
   }
 
   void _onLoadExercices(LoadExercices event, Emitter<ExercicesState> emit) async {
@@ -46,4 +47,28 @@ class ExercicesBloc extends Bloc<ExercicesEvent, ExercicesState> {
       emit(ExercicesError(error: error.toString()));
     }
   }
+
+  void _onRemoveExercise(RemoveExercise event, Emitter<ExercicesState> emit) async {
+    try {
+      if (state is ExercicesLoaded) {
+        // Supprimer l'exercice de la base de données en utilisant le repository
+        if (event.exercise.id != null) {
+          await repository.removeExercise(event.exercise.id!);
+        } else {
+          emit(ExercicesError(error: 'Exercise ID is null.'));
+          return;
+        }
+
+        // Recharger la liste des exercices après la suppression
+        List<Exercise> updatedExercises = List.from((state as ExercicesLoaded).exercices);
+        updatedExercises.remove(event.exercise);
+        emit(ExercicesLoaded(exercices: updatedExercises));
+      } else {
+        emit(ExercicesError(error: 'Invalid state: ${state.runtimeType}'));
+      }
+    } catch (error) {
+      emit(ExercicesError(error: error.toString()));
+    }
+  }
+
 }
