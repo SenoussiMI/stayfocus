@@ -30,17 +30,17 @@ class ExercicesBloc extends Bloc<ExercicesEvent, ExercicesState> {
 
   void _onAddExercise(AddExercise event, Emitter<ExercicesState> emit) async {
     try {
-      // Vérifier si l'exercice existe déjà
+      
       final existingExercises = (state as ExercicesLoaded).exercices;
       if (existingExercises.any((exercise) => exercise.name == event.exerciseName)) {
         emit(ExercicesError(error: 'Exercise already exists.'));
       } else {
-        // Ajouter l'exercice à la liste
+        
         final newExercise = event.exercise;
         final updatedExercises = [...existingExercises, newExercise];
         emit(ExercicesLoaded(exercices: updatedExercises));
 
-        // Ajouter l'exercice à la base de données en utilisant le repository
+        
         await repository.addExercise(newExercise);
       }
     } catch (error) {
@@ -51,7 +51,7 @@ class ExercicesBloc extends Bloc<ExercicesEvent, ExercicesState> {
   void _onRemoveExercise(RemoveExercise event, Emitter<ExercicesState> emit) async {
     try {
       if (state is ExercicesLoaded) {
-        // Supprimer l'exercice de la base de données en utilisant le repository
+        
         if (event.exercise.id != null) {
           await repository.removeExercise(event.exercise.id!);
         } else {
@@ -59,7 +59,7 @@ class ExercicesBloc extends Bloc<ExercicesEvent, ExercicesState> {
           return;
         }
 
-        // Recharger la liste des exercices après la suppression
+        
         List<Exercise> updatedExercises = List.from((state as ExercicesLoaded).exercices);
         updatedExercises.remove(event.exercise);
         emit(ExercicesLoaded(exercices: updatedExercises));

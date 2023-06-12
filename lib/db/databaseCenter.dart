@@ -14,7 +14,7 @@ class DatabaseHelper {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, 'stayfocus.db');
 
-    // Supprimer la base de données existante
+    
     await deleteDatabase(path);
 
     return await openDatabase(

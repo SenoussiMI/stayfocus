@@ -30,17 +30,17 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
 
   void _onAddProgram(AddProgram event, Emitter<ProgramsState> emit) async {
     try {
-      // Vérifier si le programme existe déjà
+      
       final existingPrograms = (state as ProgramsLoaded).programs;
       if (existingPrograms.any((program) => program.name == event.programName)) {
         emit(ProgramsError(error: 'Program already exists.'));
       } else {
-        // Ajouter le programme à la liste
+        
         final newProgram = event.program;
         final updatedPrograms = [...existingPrograms, newProgram];
         emit(ProgramsLoaded(programs: updatedPrograms));
 
-        // Ajouter le programme à la base de données en utilisant le repository
+        
         await repository.addProgram(newProgram);
       }
     } catch (error) {
@@ -60,7 +60,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
       }).toList();
       emit(ProgramsLoaded(programs: updatedPrograms));
 
-      // Mettre à jour le programme dans la base de données en utilisant le repository
+      
       await repository.updateProgram(event.program);
     } catch (error) {
       emit(ProgramsError(error: error.toString()));

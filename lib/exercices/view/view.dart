@@ -77,7 +77,7 @@ class ExercicesView extends StatelessWidget {
                           },
                           child: ListTile(
                             title: Text(exercise.name),
-                            // Ajoutez d'autres widgets pour afficher les détails de l'exercice si nécessaire
+                            
                           ),
                         );
                       },
@@ -94,7 +94,7 @@ class ExercicesView extends StatelessWidget {
               final exerciseName = removedExercise.name;
               final exerciseId = removedExercise.id;
 
-              // Afficher une notification avec l'ID ou le nom de l'exercice supprimé
+              
               Fluttertoast.showToast(
                 msg: 'Exercice $exerciseName (ID: $exerciseId) successfully deleted',
                 toastLength: Toast.LENGTH_SHORT,
@@ -103,7 +103,7 @@ class ExercicesView extends StatelessWidget {
                 textColor: Colors.white,
               );
 
-              return Container(); // Ajout de ce widget Container vide pour retourner quelque chose
+              return Container(); 
             }
 
             return const Center(

@@ -8,7 +8,7 @@ abstract class ExercicesEvent extends Equatable {
 }
 
 class LoadExercices extends ExercicesEvent {}
-// Ajoutez d'autres événements si nécessaire
+
 
 class AddExercise extends ExercicesEvent {
   final Exercise exercise;
